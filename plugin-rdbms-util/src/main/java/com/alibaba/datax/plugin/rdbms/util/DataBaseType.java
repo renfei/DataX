@@ -18,9 +18,10 @@ public enum DataBaseType {
     PostgreSQL("postgresql", "org.postgresql.Driver"),
     RDBMS("rdbms", "com.alibaba.datax.plugin.rdbms.util.DataBaseType"),
     DB2("db2", "com.ibm.db2.jcc.DB2Driver"),
-    ADS("ads","com.mysql.jdbc.Driver"),
+    ADS("ads", "com.mysql.jdbc.Driver"),
     ClickHouse("clickhouse", "ru.yandex.clickhouse.ClickHouseDriver"),
     KingbaseES("kingbasees", "com.kingbase8.Driver"),
+    DM("dm", "dm.jdbc.driver.DmDriver"),
     Oscar("oscar", "com.oscar.Driver"),
     OceanBase("oceanbase", "com.alipay.oceanbase.jdbc.Driver");
 
@@ -65,6 +66,8 @@ public enum DataBaseType {
                 break;
             case KingbaseES:
                 break;
+            case DM:
+                break;
             case Oscar:
                 break;
             default:
@@ -107,6 +110,8 @@ public enum DataBaseType {
             case RDBMS:
                 break;
             case KingbaseES:
+                break;
+            case DM:
                 break;
             case Oscar:
                 break;
@@ -168,6 +173,7 @@ public enum DataBaseType {
             case DB2:
             case PostgreSQL:
             case KingbaseES:
+            case DM:
             case Oscar:
                 break;
             default:
@@ -193,6 +199,7 @@ public enum DataBaseType {
             case PostgreSQL:
                 break;
             case KingbaseES:
+            case DM:
                 break;
             case Oscar:
                 break;
@@ -204,6 +211,7 @@ public enum DataBaseType {
     }
 
     private static Pattern mysqlPattern = Pattern.compile("jdbc:mysql://(.+):\\d+/.+");
+    private static Pattern dmPattern = Pattern.compile("jdbc:dm://(.+):\\d+/.+");
     private static Pattern oraclePattern = Pattern.compile("jdbc:oracle:thin:@(.+):\\d+:.+");
 
     /**
@@ -214,12 +222,17 @@ public enum DataBaseType {
         if (mysql.matches()) {
             return mysql.group(1);
         }
+        Matcher dm = dmPattern.matcher(jdbcUrl);
+        if (dm.matches()) {
+            return dm.group(1);
+        }
         Matcher oracle = oraclePattern.matcher(jdbcUrl);
         if (oracle.matches()) {
             return oracle.group(1);
         }
         return null;
     }
+
     public String getTypeName() {
         return typeName;
     }

@@ -1,0 +1,13 @@
+{
+    "name": "dmreader",
+    "parameter": {
+        "username": "",
+        "password": "",
+        "connection": [
+            {
+                "table": [],
+                "jdbcUrl": []
+            }
+        ]
+    }
+}

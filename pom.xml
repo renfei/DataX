@@ -99,7 +99,7 @@
         <module>gdbwriter</module>
         <module>cassandrawriter</module>
         <module>clickhousewriter</module>
-        <module>oscarwriter</module>
+<!--        <module>oscarwriter</module>-->
         <module>oceanbasev10writer</module>
         <!-- common support module -->
         <module>plugin-rdbms-util</module>
@@ -107,6 +107,8 @@
         <module>hbase20xsqlreader</module>
         <module>hbase20xsqlwriter</module>
         <module>kuduwriter</module>
+        <module>dmreader</module>
+        <module>dmwriter</module>
     </modules>
 
     <dependencyManagement>

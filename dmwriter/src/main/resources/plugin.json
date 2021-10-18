@@ -1,0 +1,6 @@
+{
+    "name": "dmwriter",
+    "class": "net.renfei.datax.plugin.writer.dmwriter.DmWriter",
+    "description": "useScene: prod. mechanism: Jdbc connection using the database, execute insert sql. warn: The more you know about the database, the less problems you encounter.",
+    "developer": "renfei"
+}
