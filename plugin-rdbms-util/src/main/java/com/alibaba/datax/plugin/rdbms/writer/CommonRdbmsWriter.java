@@ -181,6 +181,7 @@ public class CommonRdbmsWriter {
         protected String password;
         protected String jdbcUrl;
         protected String table;
+        protected String primaryKey;
         protected List<String> columns;
         protected List<String> preSqls;
         protected List<String> postSqls;
@@ -207,6 +208,8 @@ public class CommonRdbmsWriter {
             this.username = writerSliceConfig.getString(Key.USERNAME);
             this.password = writerSliceConfig.getString(Key.PASSWORD);
             this.jdbcUrl = writerSliceConfig.getString(Key.JDBC_URL);
+            this.primaryKey = writerSliceConfig.getString(Key.PRIMARY_KEY);
+            LOG.info("com.alibaba.datax.plugin.rdbms.writer.CommonRdbmsWriter.Task.init:primaryKey=" + this.primaryKey);
 
             //ob10的处理
             if (this.jdbcUrl.startsWith(Constant.OB10_SPLIT_STRING) && this.dataBaseType == DataBaseType.MySql) {
@@ -565,8 +568,8 @@ public class CommonRdbmsWriter {
                 if (dataBaseType != null && dataBaseType == DataBaseType.MySql && OriginalConfPretreatmentUtil.isOB10(jdbcUrl)) {
                     forceUseUpdate = true;
                 }
-
-                INSERT_OR_REPLACE_TEMPLATE = WriterUtil.getWriteTemplate(columns, valueHolders, writeMode, dataBaseType, forceUseUpdate);
+                LOG.info("this.primaryKey:" + this.primaryKey);
+                INSERT_OR_REPLACE_TEMPLATE = WriterUtil.getWriteTemplate(this.primaryKey, columns, valueHolders, writeMode, dataBaseType, forceUseUpdate);
                 writeRecordSql = String.format(INSERT_OR_REPLACE_TEMPLATE, this.table);
             }
         }
